@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آشنایی با تیم ما</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Vazir:wght@300;400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Vazir", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        color: white;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: bold;
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        z-index: 100;
+        animation: logoFloat 3s ease-in-out infinite;
+      }
+
+      @keyframes logoFloat {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0px);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+      }
+
+      .title {
+        position: absolute;
+        top: 140px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 28px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #0ea5e9, #22d3ee, #10b981);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        z-index: 100;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        perspective: 1000px;
+      }
+
+      .card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) translateX(100px) rotateY(30deg);
+        width: 85%;
+        max-width: 900px;
+        height: 65%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 100%
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 40px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      }
+
+      .card.active {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateX(0) rotateY(0deg);
+      }
+
+      .card.prev {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateX(-100px) rotateY(-30deg);
+      }
+
+      .card-image {
+        flex: 0 0 300px;
+        height: 350px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #374151, #4b5563);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+      }
+
+      .card-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(14, 165, 233, 0.2),
+          rgba(34, 211, 238, 0.2)
+        );
+        border-radius: 20px;
+        z-index: 1;
+      }
+
+      .placeholder-icon {
+        font-size: 80px;
+        color: rgba(255, 255, 255, 0.3);
+        z-index: 2;
+      }
+
+      .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        text-align: right;
+      }
+
+      .card-name {
+        font-size: 32px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 8px;
+      }
+
+      .card-specialty {
+        font-size: 18px;
+        color: #10b981;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+
+      .card-description {
+        font-size: 16px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 24px;
+      }
+
+      .card-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .skill-tag {
+        background: linear-gradient(
+          135deg,
+          rgba(14, 165, 233, 0.2),
+          rgba(16, 185, 129, 0.2)
+        );
+        border: 1px solid rgba(14, 165, 233, 0.3);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #22d3ee;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .skill-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+      }
+
+      .navigation {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 16px;
+        z-index: 100;
+      }
+
+      .nav-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .nav-dot.active {
+        background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+        transform: scale(1.3);
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+      }
+
+      .nav-arrows {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 40px;
+        z-index: 100;
+      }
+
+      .nav-arrow {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-arrow:hover {
+        background: rgba(14, 165, 233, 0.2);
+        border-color: rgba(14, 165, 233, 0.4);
+        transform: scale(1.1);
+      }
+
+      .nav-arrow::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border: 2px solid #22d3ee;
+        border-bottom: none;
+        border-left: none;
+        transform: rotate(45deg);
+      }
+
+      .nav-arrow.prev::before {
+        transform: rotate(-135deg);
+      }
+
+      @media (max-width: 768px) {
+        .card {
+          width: 95%;
+          height: 75%;
+          flex-direction: column;
+          padding: 30px 20px;
+          gap: 20px;
+        }
+
+        .card-image {
+          flex: 0 0 200px;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
+        }
+
+        .card-content {
+          text-align: center;
+          gap: 16px;
+        }
+
+        .card-name {
+          font-size: 24px;
+        }
+
+        .card-skills {
+          justify-content: center;
+        }
+
+        .title {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo">لوگو</div>
+
+    <div class="container">
+      <div class="nav-arrows">
+        <div class="nav-arrow prev" onclick="previousCard()"></div>
+        <div class="nav-arrow next" onclick="nextCard()"></div>
+      </div>
+
+      <div id="cards-container"></div>
+    </div>
+
+    <div class="navigation" id="navigation"></div>
+
+    <script>
+      // داده‌های تیم - شما می‌توانید این بخش را ویرایش کنید
+      const teamData = [
+        {
+          name: "مریم عفتی کلاته",
+          specialty: "مشاور، تسهیلگر و پژوهشگر کودک",
+          description:
+            "کارشناس ارشد ادبیات کودک و نوجوان و دانش‌آموخته فلسفه برای کودکان از پژوهشگاه علوم انسانی و مطالعات فرهنگی. بیش از ۲۵ سال تجربه در آموزش و پرورش به عنوان آموزگار، مربی پرورشی، و مشاور در حوزه‌های تربیتی و آسیب‌های اجتماعی. طراح و تسهیلگر دوره‌های تفکر و آموزش خلاق برای کودکان و نوجوانان با رویکرد ادبی و فلسفی.",
+          skills: [
+            "فلسفه برای کودکان",
+            "ادبیات کودک",
+            "تسهیلگری",
+            "مشاوره اجتماعی",
+            "تفکر خلاق",
+            "آموزش معلمان",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=مریم+عفتی",
+        },
+        {
+          name: "مهدیه مهنانی فرد",
+          specialty: "آموزگار و تسهیلگر خلاقیت کودک",
+          description:
+            "آموزگار رسمی آموزش و پرورش در مقطع ابتدایی با پشتوانه‌ای غنی از دوره‌های تخصصی در زمینه تعلیم و تربیت کودک. تسهیلگر فلسفه برای کودکان، نمایش خلاق، معرفی کتاب و ادبیات کودک. رویکرد او مبتنی بر آموزش مبتنی بر گفت‌وگو، تفکر انتقادی و رشد شخصیت کودک از طریق هنر و تعامل است.",
+          skills: [
+            "فلسفه برای کودکان",
+            "نمایش خلاق",
+            "ادبیات کودک",
+            "تسهیلگری",
+            "ارتباط مؤثر",
+            "کتاب‌خوانی کودک",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=مهدیه+مهنانی",
+        },
+        {
+          name: "مصطفی بهنام‌فر",
+          specialty: "فناور آموزشی و طراح محتوا",
+          description:
+            "فناور آموزشی با تمرکز بر استفاده از ابزارهای دیجیتال در یادگیری، طراحی محتوای آموزشی و ارتقاء تجربه یادگیرنده. ترکیبی از مهارت‌های گرافیکی، برنامه‌نویسی و آموزش تعاملی را برای خلق مسیرهای آموزشی نوآورانه به کار می‌برد.",
+          skills: [
+            "طراحی گرافیک",
+            "برنامه‌نویسی",
+            "تولید محتوای آموزشی",
+            "ابزارهای یادگیری دیجیتال",
+            "UI/UX",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=مصطفی+بهنام‌فر",
+        },
+        {
+          name: "علی کرابی",
+          specialty: "آموزگار و مربی فلسفه کودک",
+          description:
+            "آموزگار رسمی با تجربه در زمینه آموزش ابتدایی، فعال در حوزه آموزش تفکر و فلسفه به کودکان. با گذراندن دوره‌های تخصصی در زمینه فلسفه کودک و ادبیات، تمرکز خود را بر پرورش ذهن خلاق و پرسشگر در کودکان قرار داده است. به دنبال گسترش فرهنگ دیالوگ و یادگیری انتقادی در مدارس.",
+          skills: [
+            "فلسفه برای کودکان",
+            "ادبیات کودک",
+            "تسهیلگری تفکر",
+            "آموزش پرسش‌محور",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=علی+کرابی",
+        },
+        {
+          name: "سمانه باغچقی",
+          specialty: "مربی توسعه فردی کودک",
+          description:
+            "آموزگار رسمی با رویکردی جامع به آموزش و رشد کودکان. شرکت در دوره‌های تخصصی گوناگون شامل فلسفه کودک، تئوری انتخاب، تربیت جنسی، توسعه فردی، و تندخوانی. دارای دیدی چندبعدی نسبت به تعلیم و تربیت، با تمرکز بر پرورش ذهنی، روانی و اجتماعی کودک.",
+          skills: [
+            "توسعه فردی",
+            "تئوری انتخاب",
+            "فلسفه برای کودکان",
+            "تربیت جنسی",
+            "تسهیلگری",
+            "تندخوانی",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=سمانه+باغچقی",
+        },
+        {
+          name: "ابوالفضل جهانی",
+          specialty: "آموزگار و مدیر آموزشی",
+          description:
+            "آموزگار رسمی آموزش و پرورش و مدیر مدرسه با تجربه اجرایی و آموزشی در حوزه کودک. تمرکز بر آموزش خلاق و تلفیق ادبیات کودک با تفکر انتقادی. سابقه مدیریت آموزشی باعث ایجاد دید راهبردی در اجرای پروژه‌های آموزشی و فرهنگی در مدارس شده است.",
+          skills: [
+            "مدیریت مدرسه",
+            "ادبیات کودک",
+            "تسهیلگری",
+            "فلسفه برای کودکان",
+            "برنامه‌ریزی آموزشی",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=ابوالفضل+جهانی",
+        },
+        {
+          name: "فاطمه نوری",
+          specialty: "مربی تربیتی و تسهیلگر ارتباط",
+          description:
+            "آموزگار رسمی با رویکردی انسانی و چندبعدی به آموزش. شرکت‌کننده فعال در دوره‌های فلسفه برای کودک، نمایش خلاق، تربیت جنسی، تئوری انتخاب و ارتباط بدون خشونت. تمرکز او بر آموزش ارزش‌های انسانی، سواد هیجانی و خلاقیت در چارچوبی تربیتی و الهام‌بخش است.",
+          skills: [
+            "فلسفه کودک",
+            "نمایش خلاق",
+            "تربیت جنسی",
+            "تئوری انتخاب",
+            "ارتباط بدون خشونت",
+            "ادبیات کودک",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=فاطمه+نوری",
+        },
+        {
+          name: "سینا علی‌نیا",
+          specialty: "آموزگار و فعال توسعه فرهنگی کودک",
+          description:
+            "آموزگار رسمی ابتدایی و بنیان‌گذار بیش از ۵۰ کتابخانه روستایی. فعال فرهنگی با تمرکز بر کتاب‌خوانی، معرفی ادبیات کودک و رشد مهارت‌های تفکر از طریق ابزارهای خلاق. با تجربه در تسهیلگری و نمایش خلاق، او تلاش دارد کودکان را به دنیای اندیشه، تخیل و گفت‌وگو دعوت کند.",
+          skills: [
+            "کتابخانه‌سازی",
+            "ادبیات کودک",
+            "تسهیلگری",
+            "فلسفه کودک",
+            "نمایش خلاق",
+            "معلم مؤثر",
+          ],
+          image:
+            "https://via.placeholder.com/300x350/374151/ffffff?text=سینا+علی‌نیا",
+        },
+      ];
+
+      let currentCard = 0;
+      let isTransitioning = false;
+
+      function createCards() {
+        const container = document.getElementById("cards-container");
+        const navigation = document.getElementById("navigation");
+
+        teamData.forEach((member, index) => {
+          // ایجاد کارت
+          const card = document.createElement("div");
+          card.className = `card ${index === 0 ? "active" : ""}`;
+          card.innerHTML = `
+                    <div class="card-image">
+                        <img src="${member.image}" alt="${
+            member.name
+          }" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="placeholder-icon" style="display: none;">👤</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-name">${member.name}</div>
+                        <div class="card-specialty">${member.specialty}</div>
+                        <div class="card-description">${
+                          member.description
+                        }</div>
+                        <div class="card-skills">
+                            ${member.skills
+                              .map(
+                                (skill) =>
+                                  `<span class="skill-tag">${skill}</span>`
+                              )
+                              .join("")}
+                        </div>
+                    </div>
+                `;
+          container.appendChild(card);
+
+          // ایجاد نقطه ناوبری
+          const dot = document.createElement("div");
+          dot.className = `nav-dot ${index === 0 ? "active" : ""}`;
+          dot.onclick = () => goToCard(index);
+          navigation.appendChild(dot);
+        });
+      }
+
+      function goToCard(index) {
+        if (isTransitioning || index === currentCard) return;
+
+        isTransitioning = true;
+
+        const cards = document.querySelectorAll(".card");
+        const dots = document.querySelectorAll(".nav-dot");
+
+        // حذف کلاس‌های فعال
+        cards[currentCard].classList.remove("active");
+        cards[currentCard].classList.add("prev");
+        dots[currentCard].classList.remove("active");
+
+        setTimeout(() => {
+          cards[currentCard].classList.remove("prev");
+          currentCard = index;
+
+          // اضافه کردن کلاس‌های فعال
+          cards[currentCard].classList.add("active");
+          dots[currentCard].classList.add("active");
+
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 300);
+        }, 400);
+      }
+
+      function nextCard() {
+        const nextIndex = (currentCard + 1) % teamData.length;
+        goToCard(nextIndex);
+      }
+
+      function previousCard() {
+        const prevIndex = (currentCard - 1 + teamData.length) % teamData.length;
+        goToCard(prevIndex);
+      }
+
+      // تغییر خودکار کارت‌ها
+      function autoRotate() {
+        if (!isTransitioning) {
+          nextCard();
+        }
+      }
+
+      // اضافه کردن کنترل با کیبورد
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          nextCard();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          previousCard();
+        }
+      });
+
+      // راه‌اندازی اولیه
+      createCards();
+
+      // چرخش خودکار هر ۸ ثانیه
+      setInterval(autoRotate, 8000);
+    </script>
+  </body>
+</html>
